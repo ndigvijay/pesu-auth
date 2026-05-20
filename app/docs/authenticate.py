@@ -107,7 +107,7 @@ authenticate_docs = ApiDocs(
                                     "prn": "PESXXYYZZZZZ",
                                     "srn": "PESXXUGYYZZZ",
                                     "name": "John Doe",
-                                    "class": "Sem-X",
+                                    "semester": "Sem-X",
                                     "section": "Section X",
                                     "cycle": "NA",
                                     "department": "Computer Science and Engineering",

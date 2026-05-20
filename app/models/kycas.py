@@ -6,7 +6,7 @@ from pydantic import BaseModel, ConfigDict, Field
 class KYCASModel(BaseModel):
     """Model representing the "Know Your Class and Section" data."""
 
-    model_config = ConfigDict(populate_by_name=True)
+    model_config = ConfigDict(strict=True)
 
     prn: str | None = Field(
         None,
@@ -26,12 +26,10 @@ class KYCASModel(BaseModel):
         description="Full name of the user.",
         json_schema_extra={"example": "John Doe"},
     )
-    class_field: str | None = Field(
+    semester: str | None = Field(
         None,
-        validation_alias="class",
-        serialization_alias="class",
-        title="Class",
-        description="Class the user belongs to.",
+        title="Semester",
+        description="Semester of the user.",
         json_schema_extra={"example": "Sem-X"},
     )
     section: str | None = Field(

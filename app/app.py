@@ -216,7 +216,7 @@ async def authenticate(payload: RequestModel, background_tasks: BackgroundTasks)
     try:
         authentication_result = ResponseModel.model_validate(authentication_result)
         logging.info(f"Returning auth result for user={username}: {authentication_result}")
-        authentication_result = authentication_result.model_dump(exclude_none=True, by_alias=True)
+        authentication_result = authentication_result.model_dump(exclude_none=True)
         authentication_result["timestamp"] = current_time.isoformat()
         return JSONResponse(
             status_code=200,
