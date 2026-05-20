@@ -41,7 +41,6 @@ class ResponseModel(BaseModel):
 
     know_your_class_and_section: KYCASModel | None = Field(
         None,
-        title="Know Your Class and Section Data",
-        description="The user's class and section data returned only if authentication succeeds"
-        " and class/section data was requested.",
+        title="\"Know Your Class and Section\" Data",
+        description="The user's class and section data from the \"Know Your Class and Section\" endpoint returned only if authentication succeeds.",
     )

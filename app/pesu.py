@@ -277,7 +277,7 @@ class PESUAcademy:
         csrf_token: str,
         username: str,
     ) -> dict[str, Any]:
-        """Get the class and section information of the user from the Know Your Class and Section page.
+        """Get the class and section information of the user from the "Know Your Class and Section" endpoint.
 
         Args:
             client (httpx.AsyncClient): The authenticated HTTP client to use for making requests.
@@ -365,8 +365,7 @@ class PESUAcademy:
             username (str): The username of the user, usually their PRN/email/phone number.
             password (str): The password of the user.
             profile (bool, optional): Whether to fetch the profile information or not. Defaults to False.
-            know_your_class_and_section (bool, optional): Whether to fetch the class and section
-                information or not. Defaults to False.
+            know_your_class_and_section (bool, optional): Whether to fetch from the "Know Your Class and Section" endpoint or not. Defaults to False.
             fields (Optional[list[str]], optional): The fields to fetch from the profile.
             Defaults to None, which means all default fields will be fetched.
 

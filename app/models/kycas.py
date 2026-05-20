@@ -1,10 +1,10 @@
-"""Model representing the Know Your Class and Section data returned after successful authentication."""
+"""Model representing the "Know Your Class and Section" data returned after successful authentication."""
 
 from pydantic import BaseModel, ConfigDict, Field
 
 
 class KYCASModel(BaseModel):
-    """Model representing the Know Your Class and Section data."""
+    """Model representing the "Know Your Class and Section" data."""
 
     model_config = ConfigDict(populate_by_name=True)
 
@@ -31,7 +31,7 @@ class KYCASModel(BaseModel):
         validation_alias="class",
         serialization_alias="class",
         title="Class",
-        description="Class of the user.",
+        description="Class the user belongs to.",
         json_schema_extra={"example": "Sem-X"},
     )
     section: str | None = Field(
@@ -49,7 +49,7 @@ class KYCASModel(BaseModel):
     department: str | None = Field(
         None,
         title="Department",
-        description="Department of the user.",
+        description="Department the user belongs to.",
         json_schema_extra={"example": "Computer Science and Engineering"},
     )
     branch: str | None = Field(
@@ -61,6 +61,6 @@ class KYCASModel(BaseModel):
     institute_name: str | None = Field(
         None,
         title="Institute Name",
-        description="Institute name of the user.",
+        description="Institute the user belongs to.",
         json_schema_extra={"example": "PES University"},
     )
