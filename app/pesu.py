@@ -365,7 +365,8 @@ class PESUAcademy:
             username (str): The username of the user, usually their PRN/email/phone number.
             password (str): The password of the user.
             profile (bool, optional): Whether to fetch the profile information or not. Defaults to False.
-            know_your_class_and_section (bool, optional): Whether to fetch from the "Know Your Class and Section" endpoint or not. Defaults to False.
+            know_your_class_and_section (bool, optional): Whether to fetch from the
+                "Know Your Class and Section" endpoint or not. Defaults to False.
             fields (Optional[list[str]], optional): The fields to fetch from the profile.
             Defaults to None, which means all default fields will be fetched.
 
