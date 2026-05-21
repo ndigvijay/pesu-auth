@@ -287,7 +287,7 @@ class PESUAcademy:
         Returns:
             dict[str, Any]: A dictionary containing the user's class and section information.
         """
-        logging.info(f"Fetching class and section data for user={username} from KYCAS page...")
+        logging.info(f'Fetching class and section data for user={username} from "Know Your Class and Section" page...')
         kycas_url = "https://www.pesuacademy.com/Academy/a/getStudentClassInfo"
         kycas_data = {"controllerMode": "370", "actionType": "174", "loginId": username}
         kycas_headers = {
@@ -302,12 +302,12 @@ class PESUAcademy:
             response = await client.post(kycas_url, data=kycas_data, headers=kycas_headers)
         except Exception:
             raise KYCASFetchError(
-                f"Failed to send KYCAS request to PESU Academy for user={username}.",
+                f'Failed to send "Know Your Class and Section" request to PESU Academy for user={username}.',
             )
 
         if response.status_code != 200:
             raise KYCASFetchError(
-                f"Failed to fetch KYCAS data from PESU Academy for user={username}. "
+                f'Failed to fetch "Know Your Class and Section" data from PESU Academy for user={username}. '
                 f"Received status code {response.status_code}.",
             )
 
@@ -317,26 +317,27 @@ class PESUAcademy:
         table = soup.css_first("table")
         if not table:
             raise KYCASFetchError(
-                f"Could not find KYCAS table in the response for user={username}.",
+                f'Could not find "Know Your Class and Section" table in the response for user={username}.',
             )
 
         headers = [th.text(strip=True) for th in table.css("thead th")]
         if not headers:
             raise KYCASFetchError(
-                f"Could not find KYCAS table headers in the response for user={username}.",
+                f'Could not find "Know Your Class and Section" table headers in the response for user={username}.',
             )
 
         row = table.css_first("tbody tr")
         if not row:
             raise KYCASFetchError(
-                f"Could not find KYCAS data row in the response for user={username}.",
+                f'Could not find "Know Your Class and Section" data row in the response for user={username}.',
             )
 
         cells = [td.text(strip=True) for td in row.css("td")]
 
         if len(headers) != len(cells):
             raise KYCASFetchError(
-                f"Mismatch between KYCAS table headers ({len(headers)}) and cells ({len(cells)}) for user={username}.",
+                f'Mismatch between "Know Your Class and Section" table headers ({len(headers)}) '
+                f"and cells ({len(cells)}) for user={username}.",
             )
 
         for header, cell_value in zip(headers, cells):
@@ -345,10 +346,10 @@ class PESUAcademy:
 
         if not kycas:
             raise KYCASFetchError(
-                f"No KYCAS data could be extracted for user={username}.",
+                f'No "Know Your Class and Section" data could be extracted for user={username}.',
             )
 
-        logging.info(f"KYCAS data retrieved for user={username}: {kycas}.")
+        logging.info(f'"Know Your Class and Section" data retrieved for user={username}: {kycas}.')
         return kycas
 
     async def authenticate(
@@ -434,7 +435,10 @@ class PESUAcademy:
                 )
 
         if know_your_class_and_section:
-            logging.info(f"KYCAS data requested for user={username}. Fetching KYCAS data...")
+            logging.info(
+                f'"Know Your Class and Section" data requested for user={username}. '
+                'Fetching "Know Your Class and Section" data...',
+            )
             # Fetch the class and section information
             result["know_your_class_and_section"] = await self.get_know_your_class_and_section(
                 client,
@@ -447,7 +451,7 @@ class PESUAcademy:
                     key: value for key, value in result["know_your_class_and_section"].items() if key in fields
                 }
                 logging.info(
-                    f"Field filtering enabled. Filtered KYCAS data for user={username}: "
+                    f'Field filtering enabled. Filtered "Know Your Class and Section" data for user={username}: '
                     f"{result['know_your_class_and_section']}",
                 )
 

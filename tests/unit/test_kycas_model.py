@@ -1,4 +1,4 @@
-"""Unit tests for the KYCASModel Pydantic model."""
+"""Unit tests for the "Know Your Class and Section" Pydantic model."""
 
 import pytest
 from pydantic import ValidationError
@@ -7,7 +7,7 @@ from app.models.kycas import KYCASModel
 
 
 def test_kycas_model_all_fields():
-    """Test creating KYCASModel with all fields populated."""
+    """Test creating the "Know Your Class and Section" model with all fields populated."""
     data = {
         "prn": "PES1201800001",
         "srn": "PES1UG19CS001",
@@ -46,7 +46,7 @@ def test_kycas_model_all_defaults():
 
 
 def test_kycas_model_partial_fields():
-    """Test creating KYCASModel with only some fields."""
+    """Test creating the "Know Your Class and Section" model with only some fields."""
     model = KYCASModel(prn="PES1201800001", name="Jane Doe")
     assert model.prn == "PES1201800001"
     assert model.name == "Jane Doe"
@@ -57,7 +57,7 @@ def test_kycas_model_partial_fields():
 def test_kycas_model_strict_type_enforcement():
     """Test that strict mode rejects non-string types for string fields."""
     with pytest.raises(ValidationError) as exc_info:
-        KYCASModel(prn=12345)  # Should be a string, not int
+        KYCASModel(prn=12345)
     assert "prn" in str(exc_info.value)
 
 

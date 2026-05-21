@@ -373,7 +373,7 @@ def test_integration_authenticate_kycas_wrong_type(client):
 
 @pytest.mark.secret_required
 def test_integration_authenticate_with_kycas(client):
-    """Test successful authentication with KYCAS data."""
+    """Test successful authentication with "Know Your Class and Section" data."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"
@@ -397,7 +397,7 @@ def test_integration_authenticate_with_kycas(client):
 
 @pytest.mark.secret_required
 def test_integration_authenticate_with_profile_and_kycas(client):
-    """Test successful authentication requesting both profile and KYCAS."""
+    """Test successful authentication requesting both profile and "Know Your Class and Section"."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"
@@ -420,7 +420,7 @@ def test_integration_authenticate_with_profile_and_kycas(client):
 
 @pytest.mark.secret_required
 def test_integration_authenticate_kycas_without_requesting(client):
-    """Test that KYCAS data is NOT returned when know_your_class_and_section is False."""
+    """Test that "Know Your Class and Section" data is NOT returned when know_your_class_and_section is False."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"

@@ -171,7 +171,7 @@ async def test_authenticate_invalid_credentials(pesu_academy: PESUAcademy):
 @pytest.mark.secret_required
 @pytest.mark.asyncio
 async def test_authenticate_with_kycas(pesu_academy: PESUAcademy):
-    """Test successful authentication with KYCAS data."""
+    """Test successful authentication with "Know Your Class and Section" data."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"
@@ -194,7 +194,7 @@ async def test_authenticate_with_kycas(pesu_academy: PESUAcademy):
 @pytest.mark.secret_required
 @pytest.mark.asyncio
 async def test_authenticate_with_kycas_and_profile(pesu_academy: PESUAcademy):
-    """Test authentication requesting both profile and KYCAS data."""
+    """Test authentication requesting both profile and "Know Your Class and Section" data."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"
@@ -215,7 +215,7 @@ async def test_authenticate_with_kycas_and_profile(pesu_academy: PESUAcademy):
 @pytest.mark.secret_required
 @pytest.mark.asyncio
 async def test_authenticate_with_kycas_field_filtering(pesu_academy: PESUAcademy):
-    """Test that KYCAS data respects field filtering."""
+    """Test that "Know Your Class and Section" data respects field filtering."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"
@@ -238,7 +238,7 @@ async def test_authenticate_with_kycas_field_filtering(pesu_academy: PESUAcademy
 @pytest.mark.secret_required
 @pytest.mark.asyncio
 async def test_authenticate_without_kycas(pesu_academy: PESUAcademy):
-    """Test that KYCAS data is NOT returned when not requested."""
+    """Test that "Know Your Class and Section" data is NOT returned when not requested."""
     email = os.getenv("TEST_EMAIL")
     password = os.getenv("TEST_PASSWORD")
     assert email is not None, "TEST_EMAIL environment variable not set"

@@ -493,18 +493,18 @@ def test_default_fields_is_list():
 
 @pytest.mark.asyncio
 async def test_get_kycas_http_exception(pesu):
-    """Test that KYCASFetchError is raised when the POST request throws an exception."""
+    """Test that the "Know Your Class and Section" fetch error is raised on request failure."""
     client = AsyncMock()
     client.post.side_effect = Exception("Connection error")
 
     with pytest.raises(KYCASFetchError) as exc_info:
         await pesu.get_know_your_class_and_section(client, "fake-csrf", "testuser")
-    assert "Failed to send KYCAS request" in str(exc_info.value)
+    assert 'Failed to send "Know Your Class and Section" request' in str(exc_info.value)
 
 
 @pytest.mark.asyncio
 async def test_get_kycas_non_200_status(pesu):
-    """Test that KYCASFetchError is raised when the server returns a non-200 status."""
+    """Test that the "Know Your Class and Section" fetch error is raised on non-200 responses."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 500
@@ -518,7 +518,7 @@ async def test_get_kycas_non_200_status(pesu):
 @patch("app.pesu.HTMLParser")
 @pytest.mark.asyncio
 async def test_get_kycas_no_table(mock_html_parser, pesu):
-    """Test that KYCASFetchError is raised when no <table> element is found."""
+    """Test that the "Know Your Class and Section" fetch error is raised when no table is found."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -531,13 +531,13 @@ async def test_get_kycas_no_table(mock_html_parser, pesu):
 
     with pytest.raises(KYCASFetchError) as exc_info:
         await pesu.get_know_your_class_and_section(client, "fake-csrf", "testuser")
-    assert "Could not find KYCAS table" in str(exc_info.value)
+    assert 'Could not find "Know Your Class and Section" table' in str(exc_info.value)
 
 
 @patch("app.pesu.HTMLParser")
 @pytest.mark.asyncio
 async def test_get_kycas_no_headers(mock_html_parser, pesu):
-    """Test that KYCASFetchError is raised when <thead th> elements are empty."""
+    """Test that the "Know Your Class and Section" fetch error is raised when headers are empty."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -553,13 +553,13 @@ async def test_get_kycas_no_headers(mock_html_parser, pesu):
 
     with pytest.raises(KYCASFetchError) as exc_info:
         await pesu.get_know_your_class_and_section(client, "fake-csrf", "testuser")
-    assert "Could not find KYCAS table headers" in str(exc_info.value)
+    assert 'Could not find "Know Your Class and Section" table headers' in str(exc_info.value)
 
 
 @patch("app.pesu.HTMLParser")
 @pytest.mark.asyncio
 async def test_get_kycas_no_data_row(mock_html_parser, pesu):
-    """Test that KYCASFetchError is raised when there's no <tbody tr>."""
+    """Test that the "Know Your Class and Section" fetch error is raised when no row exists."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -579,13 +579,13 @@ async def test_get_kycas_no_data_row(mock_html_parser, pesu):
 
     with pytest.raises(KYCASFetchError) as exc_info:
         await pesu.get_know_your_class_and_section(client, "fake-csrf", "testuser")
-    assert "Could not find KYCAS data row" in str(exc_info.value)
+    assert 'Could not find "Know Your Class and Section" data row' in str(exc_info.value)
 
 
 @patch("app.pesu.HTMLParser")
 @pytest.mark.asyncio
 async def test_get_kycas_header_cell_mismatch(mock_html_parser, pesu):
-    """Test that KYCASFetchError is raised when headers count != cells count."""
+    """Test that the "Know Your Class and Section" fetch error is raised on malformed rows."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -613,13 +613,13 @@ async def test_get_kycas_header_cell_mismatch(mock_html_parser, pesu):
 
     with pytest.raises(KYCASFetchError) as exc_info:
         await pesu.get_know_your_class_and_section(client, "fake-csrf", "testuser")
-    assert "Mismatch between KYCAS table headers" in str(exc_info.value)
+    assert 'Mismatch between "Know Your Class and Section" table headers' in str(exc_info.value)
 
 
 @patch("app.pesu.HTMLParser")
 @pytest.mark.asyncio
 async def test_get_kycas_no_mapped_keys(mock_html_parser, pesu):
-    """Test that KYCASFetchError is raised when no headers match KYCAS_HEADER_TO_KEY_MAP."""
+    """Test that the "Know Your Class and Section" fetch error is raised on unknown headers."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -645,12 +645,12 @@ async def test_get_kycas_no_mapped_keys(mock_html_parser, pesu):
 
     with pytest.raises(KYCASFetchError) as exc_info:
         await pesu.get_know_your_class_and_section(client, "fake-csrf", "testuser")
-    assert "No KYCAS data could be extracted" in str(exc_info.value)
+    assert 'No "Know Your Class and Section" data could be extracted' in str(exc_info.value)
 
 
 @pytest.mark.asyncio
 async def test_get_kycas_success(pesu):
-    """Test the happy path: successfully parsing KYCAS data from a well-formed table."""
+    """Test the happy path: successfully parsing "Know Your Class and Section" data."""
     client = AsyncMock()
     mock_response = MagicMock()
     mock_response.status_code = 200
@@ -703,7 +703,7 @@ async def test_get_kycas_success(pesu):
 @patch("app.pesu.httpx.AsyncClient.post")
 @pytest.mark.asyncio
 async def test_authenticate_success_no_kycas(mock_post, mock_get, pesu):
-    """Test that KYCAS data is NOT in the result when know_your_class_and_section=False."""
+    """Test that "Know Your Class and Section" data is NOT returned when not requested."""
     mock_get_response = AsyncMock()
     mock_get_response.text = '<meta name="csrf-token" content="fake-csrf-token">'
     mock_get.return_value = mock_get_response
@@ -722,7 +722,7 @@ async def test_authenticate_success_no_kycas(mock_post, mock_get, pesu):
 @patch("app.pesu.PESUAcademy.get_know_your_class_and_section")
 @pytest.mark.asyncio
 async def test_authenticate_with_kycas(mock_get_kycas, mock_post, mock_get, pesu):
-    """Test that KYCAS data IS in the result when know_your_class_and_section=True."""
+    """Test that "Know Your Class and Section" data is returned when requested."""
     mock_get_response = AsyncMock()
     mock_get_response.text = '<meta name="csrf-token" content="fake-csrf-token">'
     mock_get.return_value = mock_get_response
@@ -756,7 +756,7 @@ async def test_authenticate_with_kycas(mock_get_kycas, mock_post, mock_get, pesu
 @patch("app.pesu.PESUAcademy.get_know_your_class_and_section")
 @pytest.mark.asyncio
 async def test_authenticate_with_kycas_field_filtering(mock_get_kycas, mock_post, mock_get, pesu):
-    """Test that KYCAS data is filtered when field filtering is enabled."""
+    """Test that "Know Your Class and Section" data is filtered when field filtering is enabled."""
     mock_get_response = AsyncMock()
     mock_get_response.text = '<meta name="csrf-token" content="fake-csrf-token">'
     mock_get.return_value = mock_get_response
@@ -801,7 +801,7 @@ async def test_authenticate_with_kycas_field_filtering(mock_get_kycas, mock_post
 async def test_authenticate_with_both_profile_and_kycas(
     mock_get_kycas, mock_get_profile, mock_post, mock_get, pesu
 ):
-    """Test requesting both profile and KYCAS data simultaneously."""
+    """Test requesting both profile and "Know Your Class and Section" data simultaneously."""
     mock_get_response = AsyncMock()
     mock_get_response.text = '<meta name="csrf-token" content="fake-csrf-token">'
     mock_get.return_value = mock_get_response
@@ -832,7 +832,7 @@ async def test_authenticate_with_both_profile_and_kycas(
     assert result["know_your_class_and_section"]["semester"] == "Sem-6"
 
 def test_kycas_header_to_key_map_is_dict():
-    """Test that KYCAS_HEADER_TO_KEY_MAP is a dict with expected keys."""
+    """Test that the "Know Your Class and Section" header map has expected keys."""
     kmap = PESUAcademy.KYCAS_HEADER_TO_KEY_MAP
     assert isinstance(kmap, dict)
     assert "PRN" in kmap
@@ -848,7 +848,7 @@ def test_kycas_header_to_key_map_is_dict():
 
 
 def test_default_fields_includes_kycas_relevant_fields():
-    """Test that DEFAULT_FIELDS now includes fields relevant to KYCAS filtering."""
+    """Test that DEFAULT_FIELDS includes fields relevant to "Know Your Class and Section" filtering."""
     fields = PESUAcademy.DEFAULT_FIELDS
     assert "semester" in fields
     assert "cycle" in fields
