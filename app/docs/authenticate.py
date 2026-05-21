@@ -23,8 +23,8 @@ authenticate_docs = ApiDocs(
                                 "profile": True,
                             },
                         },
-                        "auth_with_class_and_section": {
-                            "summary": 'Authentication with "Know Your Class and Section"',
+                        "auth_with_kycas": {
+                            "summary": 'Authentication with "Know Your Class and Section" endpoint',
                             "description": 'Authentication with "Know Your Class and Section" data',
                             "value": {
                                 "username": "PES1201800001",
@@ -85,7 +85,7 @@ authenticate_docs = ApiDocs(
                             },
                         },
                         "authentication_with_kycas": {
-                            "summary": 'Authentication with "Know Your Class and Section"',
+                            "summary": 'Authentication with "Know Your Class and Section endpoint"',
                             "value": {
                                 "status": True,
                                 "message": "Login successful.",
@@ -210,7 +210,7 @@ authenticate_docs = ApiDocs(
                             },
                         },
                         "kycas_fetch_error": {
-                            "summary": '"Know Your Class and Section" page fetching failed',
+                            "summary": '"Know Your Class and Section" endpoint fetching failed',
                             "value": {
                                 "status": False,
                                 "message": "Failed to fetch Know Your Class and Section data from PESU Academy.",

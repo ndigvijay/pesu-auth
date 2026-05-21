@@ -38,6 +38,6 @@ class ProfileParseError(PESUAcademyError):
 class KYCASFetchError(PESUAcademyError):
     """Raised when "Know Your Class and Section" data could not be fetched from PESU Academy."""
 
-    def __init__(self, message: str = "Failed to fetch Know Your Class and Section data from PESU Academy.") -> None:
+    def __init__(self, message: str = "Failed to fetch \"Know Your Class and Section\" data from PESU Academy.") -> None:
         """Initialize the "Know Your Class and Section" FetchError with a custom message."""
         super().__init__(message, status_code=502)

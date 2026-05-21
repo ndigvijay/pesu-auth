@@ -29,7 +29,7 @@ class KYCASModel(BaseModel):
     semester: str | None = Field(
         None,
         title="Semester",
-        description="Semester of the user.",
+        description="Semester the user belongs to.",
         json_schema_extra={"example": "Sem-X"},
     )
     section: str | None = Field(
@@ -41,7 +41,7 @@ class KYCASModel(BaseModel):
     cycle: str | None = Field(
         None,
         title="Cycle",
-        description="Cycle of the user.",
+        description="Cycle the user belongs to.",
         json_schema_extra={"example": "NA"},
     )
     department: str | None = Field(
