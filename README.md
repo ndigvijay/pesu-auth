@@ -111,6 +111,7 @@ object, with the user's profile information if requested.
 | `username`    | No           | `str`       |             | The user's SRN or PRN                                                                           |
 | `password`    | No           | `str`       |             | The user's password                                                                             |
 | `profile`     | Yes          | `boolean`   | `False`     | Whether to fetch profile information                                                            |
+| `know_your_class_and_section` | Yes          | `boolean`   | `False`     | Whether to fetch Know Your Class and Section information                                        |
 | `fields`      | Yes          | `list[str]` | `None`      | Which fields to fetch from the profile information. If not provided, all fields will be fetched |
 
 #### Response Object
@@ -123,6 +124,7 @@ profile data was requested, the response's `profile` key will store a dictionary
 |-------------|-----------------|--------------------------------------------------------------------------|
 | `status`    | `boolean`       | A flag indicating whether the overall request was successful             |
 | `profile`   | `ProfileObject` | A nested map storing the profile information, returned only if requested |
+| `know_your_class_and_section` | `KnowYourClassAndSectionObject` | A nested map storing the profile information from PESU's Know Your Class and Section Portal |
 | `message`   | `str`           | A message that provides information corresponding to the status          |
 | `timestamp` | `datetime`      | A timezone offset timestamp indicating the time of authentication        |
 
@@ -144,6 +146,22 @@ If the authentication fails, this field will not be present in the response.
 | `phone`       | Phone number of the user registered with PESU          |
 | `campus_code` | The integer code of the campus (1 for RR and 2 for EC) |
 | `campus`      | Abbreviation of the user's campus name                 |
+
+#### KnowYourClassAndSectionObject
+
+| **Field**        | **Description**                                                |
+|------------------|----------------------------------------------------------------|
+| `prn`            | PRN of the user                                                |
+| `srn`            | SRN of the user                                                |
+| `name`           | Name of the user                                               |
+| `semester`       | Current semester that the user is in                           |
+| `section`        | Section of the user                                            |
+| `cycle`          | Physics Cycle or Chemistry Cycle, if the user is in first year |
+| `department`     | Abbreviation of the branch along with the campus of the user   |
+| `branch`         | Abbreviation of the branch that the user is pursuing           |
+| `institute_name` | The name of the campus that the user is studying in            |
+| `error`          | The error name and stack trace, if an error occurs             |
+
 
 ### `/health`
 
@@ -177,6 +195,7 @@ data = {
     "username": "your SRN or PRN here",
     "password": "your password here",
     "profile": True,  # Optional, defaults to False
+    'know_your_class_and_section': True,  # Optional, defaults to False
 }
 
 response = requests.post("http://localhost:5000/authenticate", json=data)
@@ -202,6 +221,17 @@ print(response.json())
     "campus": "RR"
   },
   "message": "Login successful.",
+  "know_your_class_and_section": {
+    "prn": "PES1201800001",
+    "srn": "PES1201800001",
+    "name": "JOHNNY BLAZE",
+    "semester": "Sem-8",
+    "section": "Section F",
+    "cycle": "NA",
+    "department": "CSE(EC Campus)",
+    "branch": "CSE",
+    "institute_name": "PES University (Electronic City)"
+  },
   "timestamp": "2024-07-28 22:30:10.103368+05:30"
 }
 ```
