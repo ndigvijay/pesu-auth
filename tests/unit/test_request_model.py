@@ -110,3 +110,42 @@ def test_validate_username_strips_whitespace():
 def test_validate_password_strips_whitespace():
     model = RequestModel(username="testuser", password="  testpass  ")
     assert model.password == "testpass"
+
+
+def test_validate_know_your_class_and_section_default_false():
+    """Test that know_your_class_and_section defaults to False."""
+    model = RequestModel(username="testuser", password="testpass")
+    assert model.know_your_class_and_section is False
+
+
+def test_validate_know_your_class_and_section_true():
+    """Test setting know_your_class_and_section to True."""
+    model = RequestModel(
+        username="testuser",
+        password="testpass",
+        know_your_class_and_section=True,
+    )
+    assert model.know_your_class_and_section is True
+
+
+def test_validate_know_your_class_and_section_invalid_type():
+    """Test that non-boolean types are rejected for know_your_class_and_section."""
+    with pytest.raises(ValidationError) as exc_info:
+        RequestModel(
+            username="testuser",
+            password="testpass",
+            know_your_class_and_section="yes",
+        )
+    assert exc_info.value.errors()[0]["type"] == "bool_type"
+    assert "Input should be a valid boolean" in str(exc_info.value)
+
+
+def test_validate_know_your_class_and_section_int_rejected():
+    """Test that integer types are rejected (strict mode)."""
+    with pytest.raises(ValidationError) as exc_info:
+        RequestModel(
+            username="testuser",
+            password="testpass",
+            know_your_class_and_section=1,
+        )
+    assert "Input should be a valid boolean" in str(exc_info.value)

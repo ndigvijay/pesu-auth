@@ -37,6 +37,37 @@ def test_authenticate_general_exception(mock_authenticate, client):
     assert "Internal Server Error" in data["message"]
 
 
+@patch("app.app.pesu_academy.authenticate")
+def test_authenticate_passes_kycas_flag(mock_authenticate, client):
+    mock_authenticate.return_value = {
+        "status": True,
+        "message": "Login successful.",
+        "know_your_class_and_section": {
+            "srn": "PES2UG21CS310",
+            "semester": "Sem-8",
+            "section": "Section F",
+        },
+    }
+    payload = {
+        "username": "testuser",
+        "password": "testpass",
+        "know_your_class_and_section": True,
+    }
+
+    response = client.post("/authenticate", json=payload)
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["know_your_class_and_section"]["semester"] == "Sem-8"
+    mock_authenticate.assert_called_once_with(
+        username="testuser",
+        password="testpass",
+        profile=False,
+        know_your_class_and_section=True,
+        fields=None,
+    )
+
+
 @patch("app.app.argparse.ArgumentParser.parse_args")
 @patch("app.app.logging.basicConfig")
 @patch("app.app.uvicorn.run")
