@@ -8,7 +8,8 @@ from app.app import app, main
 
 @pytest.fixture
 def client():
-    return TestClient(app, raise_server_exceptions=False)
+    with TestClient(app, raise_server_exceptions=False) as client:
+        yield client
 
 
 @patch("app.app.pesu_academy.authenticate")
