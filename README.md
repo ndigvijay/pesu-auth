@@ -111,7 +111,7 @@ object, with the user's profile information if requested.
 | `username`    | No           | `str`       |             | The user's SRN or PRN                                                                           |
 | `password`    | No           | `str`       |             | The user's password                                                                             |
 | `profile`     | Yes          | `boolean`   | `False`     | Whether to fetch profile information                                                            |
-| `know_your_class_and_section` | Yes          | `boolean`   | `False`     | Whether to fetch Know Your Class and Section information                                        |
+| `know_your_class_and_section` | Yes          | `boolean`   | `False`     | Whether to fetch data from PESU's "Know Your Class and Section" information                                        |
 | `fields`      | Yes          | `list[str]` | `None`      | Which fields to fetch from the profile information. If not provided, all fields will be fetched |
 
 #### Response Object
@@ -124,7 +124,7 @@ profile data was requested, the response's `profile` key will store a dictionary
 |-------------|-----------------|--------------------------------------------------------------------------|
 | `status`    | `boolean`       | A flag indicating whether the overall request was successful             |
 | `profile`   | `ProfileObject` | A nested map storing the profile information, returned only if requested |
-| `know_your_class_and_section` | `KnowYourClassAndSectionObject` | A nested map storing the profile information from PESU's Know Your Class and Section Portal |
+| `know_your_class_and_section` | `KnowYourClassAndSectionObject` | A nested map storing the profile information from PESU's "Know Your Class and Section" endpoint |
 | `message`   | `str`           | A message that provides information corresponding to the status          |
 | `timestamp` | `datetime`      | A timezone offset timestamp indicating the time of authentication        |
 
@@ -147,7 +147,7 @@ If the authentication fails, this field will not be present in the response.
 | `campus_code` | The integer code of the campus (1 for RR and 2 for EC) |
 | `campus`      | Abbreviation of the user's campus name                 |
 
-#### KnowYourClassAndSectionObject
+#### `KnowYourClassAndSectionObject`
 
 | **Field**        | **Description**                                                |
 |------------------|----------------------------------------------------------------|
@@ -157,7 +157,7 @@ If the authentication fails, this field will not be present in the response.
 | `semester`       | Current semester that the user is in                           |
 | `section`        | Section of the user                                            |
 | `cycle`          | Physics Cycle or Chemistry Cycle, if the user is in first year |
-| `department`     | Abbreviation of the branch along with the campus of the user   |
+| `department`     | Abbreviation of the branch along with the campus the user is studying in   |
 | `branch`         | Abbreviation of the branch that the user is pursuing           |
 | `institute_name` | The name of the campus that the user is studying in            |
 | `error`          | The error name and stack trace, if an error occurs             |

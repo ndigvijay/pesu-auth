@@ -53,7 +53,7 @@ class KYCASModel(BaseModel):
     branch: str | None = Field(
         None,
         title="Branch",
-        description="Branch short code of the user.",
+        description="Abbreviation of the branch that the user is pursuing.",
         json_schema_extra={"example": "CSE"},
     )
     institute_name: str | None = Field(
