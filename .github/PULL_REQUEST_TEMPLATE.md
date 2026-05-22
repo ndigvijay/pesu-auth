@@ -12,11 +12,9 @@ Please provide a concise summary of the changes:
 - What problem does it solve, or what feature does it add?
 - Any relevant motivation, background, or context?
 
-
 > ℹ️ **Fixes / Related Issues**
 > Fixes: #100
 > Related: #001
-
 
 ## 🧱 Type of Change
 
@@ -35,7 +33,6 @@ Please provide a concise summary of the changes:
 - [ ] 🔒 Security fix – Addresses auth/session/data validation vulnerabilities
 - [ ] 🧰 Dependency update – Updates libraries in `requirements.txt`, `pyproject.toml`
 
-
 ## 🧪 How Has This Been Tested?
 
 > *Please indicate how you tested your changes. Completing all the relevant items on this list is mandatory*
@@ -50,7 +47,6 @@ Please provide a concise summary of the changes:
 > - OS: (e.g., `Linux`)
 > - Python: (e.g., `3.12` via `uv`)
 > - [ ] Docker build tested
-
 
 ## ✅ Checklist
 
@@ -70,7 +66,6 @@ Please provide a concise summary of the changes:
 - [ ] I've tested across multiple environments (if applicable)
 - [ ] Benchmarks still meet expected performance (`scripts/benchmark/benchmark_requests.py`)
 
-
 ## 🛠️ Affected API Behaviour
 
 > *Please indicate the areas affected by changes introduced in your PR*
@@ -78,33 +73,31 @@ Please provide a concise summary of the changes:
 - [ ] `app/app.py` – Modified `/authenticate` route logic
 - [ ] `app/pesu.py` – Updated scraping or authentication handling
 
-
 ### 🧩 Models
-* [ ] `app/models/request.py` – Input validation or request schema changes
-* [ ] `app/models/response.py` – Authentication response formatting
-* [ ] `app/models/profile.py` – Profile extraction logic
 
+- [ ] `app/models/request.py` – Input validation or request schema changes
+- [ ] `app/models/response.py` – Authentication response formatting
+- [ ] `app/models/profile.py` – Profile extraction logic
 
 ### 🐳 DevOps & Config
 
-* [ ] `Dockerfile` – Changes to base image or build process
-* [ ] `.github/workflows/*.yaml` – CI/CD pipeline or deployment updates
-* [ ] `pyproject.toml` / `requirements.txt` – Dependency version changes
-* [ ] `.pre-commit-config.yaml` – Linting or formatting hook changes
-
+- [ ] `Dockerfile` – Changes to base image or build process
+- [ ] `.github/workflows/*.yaml` – CI/CD pipeline or deployment updates
+- [ ] `pyproject.toml` / `requirements.txt` – Dependency version changes
+- [ ] `.pre-commit-config.yaml` – Linting or formatting hook changes
 
 ### 📊 Benchmarks & Analysis
 
-* [ ] `scripts/benchmark_auth.py` – Performance or latency measurement changes
-* [ ] `scripts/analyze_benchmark.py` – Benchmark result analysis changes
-* [ ] `scripts/run_tests.py` – Custom test runner logic or behavior updates
-
+- [ ] `scripts/benchmark_auth.py` – Performance or latency measurement changes
+- [ ] `scripts/analyze_benchmark.py` – Benchmark result analysis changes
+- [ ] `scripts/run_tests.py` – Custom test runner logic or behavior updates
 
 ## 📸 Screenshots / API Demos (if applicable)
 
 > *Add any visual evidence that supports your changes. MANDATORY for breaking changes.*
 >
 > *Examples:*
+>
 > - *Terminal output from a successful `curl` request (redact sensitive data)*
 > - *Screenshots of Postman/Bruno results*
 > - *GIF of the endpoint working in a browser*
@@ -115,6 +108,7 @@ Please provide a concise summary of the changes:
 > *Use this space to add any final context or implementation caveats.*
 >
 > *Examples:*
+>
 > - *Edge cases or limitations to be aware of*
 > - *Follow-up work or tech debt to track*
 > - *Known compatibility issues (e.g., with certain Python versions)*

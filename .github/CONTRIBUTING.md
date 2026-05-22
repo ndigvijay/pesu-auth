@@ -3,32 +3,31 @@
 Thank you for your interest in contributing to auth! This document provides guidelines and instructions for setting up
 your development environment and contributing to the project.
 
-
 <details>
 <summary>📚 Table of Contents</summary>
 
 - [🤝 Contributing to auth](#-contributing-to-auth)
 - [🚧 Getting Started](#-getting-started)
 - [🛠️ Development Environment Setup](#-development-environment-setup)
-    - [Prerequisites](#prerequisites)
-    - [Setting Up Your Environment](#setting-up-your-environment)
-    - [Set Up Environment Variables](#set-up-environment-variables)
-    - [Pre-commit Hooks](#pre-commit-hooks)
+  - [Prerequisites](#prerequisites)
+  - [Setting Up Your Environment](#setting-up-your-environment)
+  - [Set Up Environment Variables](#set-up-environment-variables)
+  - [Pre-commit Hooks](#pre-commit-hooks)
 - [🧰 Running the Application](#-running-the-application)
 - [🧪 Testing and Code Quality](#-testing-and-code-quality)
-    - [Pre-commit Hooks](#pre-commit-hooks-1)
-    - [Linting & Formatting](#linting--formatting)
+  - [Pre-commit Hooks](#pre-commit-hooks-1)
+  - [Linting & Formatting](#linting--formatting)
 - [🧪 Running Tests](#-running-tests)
-    - [Writing Tests](#writing-tests)
+  - [Writing Tests](#writing-tests)
 - [🚀 Submitting Changes](#-submitting-changes)
-    - [🔀 Create a Branch](#-create-a-branch)
-    - [✏️ Make and Commit Changes](#-make-and-commit-changes)
-    - [📤 Push and Open a Pull Request](#-push-and-open-a-pull-request)
+  - [🔀 Create a Branch](#-create-a-branch)
+  - [✏️ Make and Commit Changes](#-make-and-commit-changes)
+  - [📤 Push and Open a Pull Request](#-push-and-open-a-pull-request)
 - [❓ Need Help?](#-need-help)
 - [🔐 Security](#-security)
 - [✨ Code Style Guide](#-code-style-guide)
-    - [✅ General Guidelines](#-general-guidelines)
-    - [📝 Docstrings & Comments](#-docstrings--comments)
+  - [✅ General Guidelines](#-general-guidelines)
+  - [📝 Docstrings & Comments](#-docstrings--comments)
 - [🏷️ GitHub Labels](#-github-labels)
 - [🧩 Feature Suggestions](#-feature-suggestions)
 - [📄 License](#-license)
@@ -52,14 +51,14 @@ We maintain two deployment environments:
 The standard workflow for contributing is as follows:
 
 1. Fork the repository on GitHub and clone it to your local machine.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them with clear, descriptive messages.
-4. Push your branch to your fork on GitHub.
-5. Create a Pull Request (PR) against the repository's `dev` branch (not `main`).
-6. Wait for review and feedback from the maintainers, address any comments or suggestions.
-7. Once approved, your changes will be merged into the `dev` branch and deployed to staging for testing.
-8. After all pre-commit checks pass, deployment to staging is triggered automatically.
-9. Production deployment is performed manually by authorized maintainers after successful staging validation.
+1. Create a new branch for your feature or bug fix.
+1. Make your changes and commit them with clear, descriptive messages.
+1. Push your branch to your fork on GitHub.
+1. Create a Pull Request (PR) against the repository's `dev` branch (not `main`).
+1. Wait for review and feedback from the maintainers, address any comments or suggestions.
+1. Once approved, your changes will be merged into the `dev` branch and deployed to staging for testing.
+1. After all pre-commit checks pass, deployment to staging is triggered automatically.
+1. Production deployment is performed manually by authorized maintainers after successful staging validation.
 
 > [!WARNING]
 > Please note that you will not be able to push directly to either the `dev` or `main` branches of the repository. All
@@ -82,12 +81,14 @@ projects.
 ### Setting Up Your Environment
 
 1. **Create and activate a virtual environment:**
+
    ```bash
    uv venv --python 3.11
    source .venv/bin/activate
    ```
 
-2. **Install dependencies:**
+1. **Install dependencies:**
+
    ```bash
    uv sync --all-extras
    ```
@@ -95,11 +96,12 @@ projects.
 ### Set Up Environment Variables
 
 1. **Copy the example environment file to create your own:**
+
    ```bash
    cp .env.example .env
    ```
 
-2. **Configure your test credentials:**
+1. **Configure your test credentials:**
    Open the `.env` file and replace all `<YOUR_..._HERE>` placeholders with your actual test user details. Each variable
    has been documented in the `.env.example` file for clarity.
 
@@ -127,13 +129,13 @@ suite automatically before every commit.
 
 The following checks are enforced:
 
-* ✅ `ruff` for linting and formatting (with auto-fix)
-* ✅ `blacken-docs` to format code blocks inside Markdown files
-* ✅ `pyupgrade` to upgrade syntax to Python 3.9+
-* ✅ `end-of-file-fixer`, `trailing-whitespace`, `check-yaml`, `check-toml`, `requirements-txt-fixer` for formatting
-* ✅ `name-tests-test` to enforce test naming conventions
-* ✅ `debug-statements` to prevent committed `print()` or `pdb`
-* ✅ A local `pytest` hook that runs the full test suite
+- ✅ `ruff` for linting and formatting (with auto-fix)
+- ✅ `blacken-docs` to format code blocks inside Markdown files
+- ✅ `pyupgrade` to upgrade syntax to Python 3.9+
+- ✅ `end-of-file-fixer`, `trailing-whitespace`, `check-yaml`, `check-toml`, `requirements-txt-fixer` for formatting
+- ✅ `name-tests-test` to enforce test naming conventions
+- ✅ `debug-statements` to prevent committed `print()` or `pdb`
+- ✅ A local `pytest` hook that runs the full test suite
 
 > [!WARNING]
 > You will not be able to commit code that fails these checks.
@@ -168,10 +170,10 @@ uv run pytest --cov
 
 ### Writing Tests
 
-* Write tests for all new features and bug fixes
-* Place them in the `tests/` directory
-* Name your test files and functions with the `test_` prefix (required by `pytest` and validated by pre-commit)
-* Keep test cases small, meaningful, and well-named
+- Write tests for all new features and bug fixes
+- Place them in the `tests/` directory
+- Name your test files and functions with the `test_` prefix (required by `pytest` and validated by pre-commit)
+- Keep test cases small, meaningful, and well-named
 
 ## 🚀 Submitting Changes
 
@@ -198,7 +200,7 @@ git commit -m "fix: resolve token expiry issue"
 Use [Conventional Commits](https://www.conventionalcommits.org/) to keep commit history consistent:
 
 | Type        | Use for…                                       |
-|-------------|------------------------------------------------|
+| ----------- | ---------------------------------------------- |
 | `feat:`     | New features                                   |
 | `fix:`      | Bug fixes                                      |
 | `docs:`     | Documentation changes                          |
@@ -210,18 +212,19 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) to keep commit 
 ### 📤 Push and Open a Pull Request
 
 1. Push your branch to your fork:
+
    ```bash
    git push origin your-feature-name
    ```
 
-2. Open a Pull Request (PR) on GitHub targeting the `dev` branch.
+1. Open a Pull Request (PR) on GitHub targeting the `dev` branch.
 
-3. In your PR:
+1. In your PR:
 
-    * Use a clear and descriptive title
-    * Include a summary of your changes
-    * Link any related issues using `Closes #issue-number`
-    * Add screenshots, terminal output, or examples if relevant
+   - Use a clear and descriptive title
+   - Include a summary of your changes
+   - Link any related issues using `Closes #issue-number`
+   - Add screenshots, terminal output, or examples if relevant
 
 After your PR is merged into `dev`, all `pre-commit` checks will run automatically. If they pass, deployment to staging is triggered.
 The maintainers will review your PR, provide feedback, and may request changes. Once approved, your PR will be merged
@@ -233,12 +236,12 @@ production which is manually trigerred by authorized maintainers.
 If you get stuck or have questions:
 
 1. Check the [README.md](../README.md) for setup and usage info.
-2. Review [open issues](https://github.com/pesu-dev/auth/issues)
+1. Review [open issues](https://github.com/pesu-dev/auth/issues)
    or [pull requests](https://github.com/pesu-dev/auth/pulls) to see if someone else encountered the same problem.
-3. Reach out to the maintainers on PESU Discord.
-    - Use the `#pesu-auth` channel for questions related to this repository.
-    - Search for existing discussions before posting.
-4. Open a new issue if you're facing something new or need clarification.
+1. Reach out to the maintainers on PESU Discord.
+   - Use the `#pesu-auth` channel for questions related to this repository.
+   - Search for existing discussions before posting.
+1. Open a new issue if you're facing something new or need clarification.
 
 ## 🔐 Security
 
@@ -253,18 +256,18 @@ To keep the codebase clean and maintainable, please follow these conventions:
 
 ### ✅ General Guidelines
 
-* Write clean, readable code
-* Use meaningful variable and function names
-* Avoid large functions; keep logic modular and composable
-* Use Python 3.11+ syntax when appropriate (e.g., `match`, `|` union types)
-* Keep imports sorted and remove unused ones (handled automatically via `ruff`)
+- Write clean, readable code
+- Use meaningful variable and function names
+- Avoid large functions; keep logic modular and composable
+- Use Python 3.11+ syntax when appropriate (e.g., `match`, `|` union types)
+- Keep imports sorted and remove unused ones (handled automatically via `ruff`)
 
 ### 📝 Docstrings & Comments
 
-* Add docstrings to all public functions, classes, and modules
-* Use [Google-style docstrings](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) (or
+- Add docstrings to all public functions, classes, and modules
+- Use [Google-style docstrings](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) (or
   consistent alternatives)
-* Write comments when logic is non-obvious and avoid restating the code
+- Write comments when logic is non-obvious and avoid restating the code
 
 Example:
 
@@ -289,52 +292,52 @@ each label means:
 ### 🧑‍💻 Contribution Level
 
 | Label              | Description                                                   |
-|--------------------|---------------------------------------------------------------|
+| ------------------ | ------------------------------------------------------------- |
 | `good first issue` | 🟢 Simple, well-scoped tasks good for first-time contributors |
 | `help wanted`      | 🟡 Maintainers are actively seeking help on this issue        |
 
 ### 🐞 Bug & Error Handling
 
 | Label       | Description                                                 |
-|-------------|-------------------------------------------------------------|
+| ----------- | ----------------------------------------------------------- |
 | `bug`       | 🔴 A defect or unexpected behavior in the application       |
 | `invalid`   | 🚫 The issue/PR is not valid or based on a misunderstanding |
-| `wontfix`   | ❌ The issue is acknowledged but will not be fixed           |
+| `wontfix`   | ❌ The issue is acknowledged but will not be fixed          |
 | `duplicate` | 📑 This issue or PR duplicates an existing one              |
 
 ### ✨ Feature Development
 
 | Label         | Description                                             |
-|---------------|---------------------------------------------------------|
+| ------------- | ------------------------------------------------------- |
 | `enhancement` | 🟢 A request or proposal for improvement or new feature |
 | `feature`     | 🌟 Work related to adding a new capability              |
-| `question`    | ❓ Request for clarification or discussion               |
+| `question`    | ❓ Request for clarification or discussion              |
 
 ### 📚 Documentation
 
 | Label           | Description                                          |
-|-----------------|------------------------------------------------------|
+| --------------- | ---------------------------------------------------- |
 | `documentation` | 📘 Updates to README, docstrings, or inline comments |
 
 ### 🧪 Testing & CI/CD
 
 | Label             | Description                                                       |
-|-------------------|-------------------------------------------------------------------|
+| ----------------- | ----------------------------------------------------------------- |
 | `tests and ci/cd` | 🧪 Changes or issues related to testing or continuous integration |
 
 ### 🔒 Authentication & Core
 
 | Label             | Description                                               |
-|-------------------|-----------------------------------------------------------|
+| ----------------- | --------------------------------------------------------- |
 | `authentication`  | 🔐 Login, CSRF, token handling, error flows               |
 | `pesuacademy`     | 🎓 PESUAcademy client, authentication, and scraping logic |
-| `student profile` | 🧑‍🎓 HTML parsing & profile field extraction logic       |
+| `student profile` | 🧑‍🎓 HTML parsing & profile field extraction logic          |
 
 ### 🧠 Meta / Organization
 
-| Label        | Description                                         |
-|--------------|-----------------------------------------------------|
-| `api`        | ⚙️ Core FastAPI application and route handlers      |
+| Label        | Description                                        |
+| ------------ | -------------------------------------------------- |
+| `api`        | ⚙️ Core FastAPI application and route handlers     |
 | `discussion` | 🗣️ Open-ended conversation about project direction |
 
 > [!NOTE]
@@ -346,8 +349,8 @@ each label means:
 If you want to propose a new feature:
 
 1. Check if it already exists in [issues](https://github.com/pesu-dev/auth/issues)
-2. Open a new issue using the **"Feature Request"** template if available
-3. Clearly explain the use case, proposed solution, and any relevant context
+1. Open a new issue using the **"Feature Request"** template if available
+1. Clearly explain the use case, proposed solution, and any relevant context
 
 ## 📄 License
 

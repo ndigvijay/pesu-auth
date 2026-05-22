@@ -20,6 +20,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "matplotlib>=3.10.3",
+    "mdformat>=1.0.0",
+    "mdformat-gfm>=1.0.0",
     "numpy>=2.3.1",
     "pandas>=2.3.1",
     "pre-commit>=4.2.0",

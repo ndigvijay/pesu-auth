@@ -396,7 +396,7 @@ async def test_get_profile_information_no_profile_data(mock_get, mock_html_parse
 
 @patch("app.pesu.HTMLParser")
 @patch("app.pesu.httpx.AsyncClient.get")
-@patch("app.pesu.PESUAcademy._extract_and_update_profile", new_callable=AsyncMock)
+@patch("app.pesu.PESUAcademy._extract_and_update_profile", new_callable=MagicMock)
 @pytest.mark.asyncio
 async def test_get_profile_information_empty_profile_triggers_final_parse_error(
     mock_extract,
@@ -697,6 +697,39 @@ async def test_get_kycas_success(pesu):
     assert result["department"] == "CSE(EC Campus)"
     assert result["branch"] == "CSE"
     assert result["institute_name"] == "PES University (Electronic City)"
+
+
+@patch("app.pesu.httpx.AsyncClient.get")
+@patch("app.pesu.httpx.AsyncClient.post")
+@patch("app.pesu.PESUAcademy.get_know_your_class_and_section")
+@pytest.mark.asyncio
+async def test_authenticate_passes_kycas_flag(mock_get_kycas, mock_post, mock_get, pesu):
+    """Test that authenticate calls get_know_your_class_and_section when the flag is set."""
+    mock_get_response = AsyncMock()
+    mock_get_response.text = '<meta name="csrf-token" content="fake-csrf-token">'
+    mock_get.return_value = mock_get_response
+
+    mock_post_response = AsyncMock()
+    mock_post_response.text = '<meta name="csrf-token" content="new-csrf-token">'
+    mock_post.return_value = mock_post_response
+
+    mock_get_kycas.return_value = {
+        "prn": "PES1201800001",
+        "srn": "PES1UG19CS001",
+        "name": "John Doe",
+        "semester": "Sem-6",
+        "section": "Section A",
+        "cycle": "NA",
+        "department": "CSE(RR Campus)",
+        "branch": "CSE",
+        "institute_name": "PES University",
+    }
+
+    result = await pesu.authenticate("testuser", "testpass", profile=False, know_your_class_and_section=True)
+
+    assert result["status"] is True
+    assert result["know_your_class_and_section"]["semester"] == "Sem-6"
+    mock_get_kycas.assert_called_once()
 
 
 @patch("app.pesu.httpx.AsyncClient.get")

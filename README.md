@@ -16,8 +16,8 @@ returns the user's profile information. No personal data is stored.
 
 ## PESUAuth LIVE Deployment
 
-* You can access the PESUAuth API endpoints [here](https://pesu-auth.onrender.com/).
-* You can view the health status of the API on the [PESUAuth Health Dashboard](https://xzlk85cp.status.cron-job.org/).
+- You can access the PESUAuth API endpoints [here](https://pesu-auth.onrender.com/).
+- You can view the health status of the API on the [PESUAuth Health Dashboard](https://xzlk85cp.status.cron-job.org/).
 
 #### API Status
 
@@ -46,27 +46,30 @@ following commands to start the API.
 
 1. Build the Docker image either from the source code or pull the pre-built image from Docker Hub.
 
-    1. You can build the Docker image from the source code by running the following command in the root directory of
-       the repository.
-       ```bash
-       docker build . --tag pesu-auth
-       ```
+   1. You can build the Docker image from the source code by running the following command in the root directory of
+      the repository.
 
-    2. You can also pull the pre-built Docker image
-       from [Docker Hub](https://hub.docker.com/repository/docker/pesudev/pesu-auth/general) by running the
-       following command:
-       ```bash
-       docker pull pesudev/pesu-auth:latest
-       ```
+      ```bash
+      docker build . --tag pesu-auth
+      ```
 
-2. Run the Docker container
-    ```bash
-    docker run --name pesu-auth -d -p 5000:5000 pesu-auth
-    # If you pulled the pre-built image, use the following command instead:
-    docker run --name pesu-auth -d -p 5000:5000 pesudev/pesu-auth:latest
-    ```
+   1. You can also pull the pre-built Docker image
+      from [Docker Hub](https://hub.docker.com/repository/docker/pesudev/pesu-auth/general) by running the
+      following command:
 
-3. Access the API at `http://localhost:5000/`
+      ```bash
+      docker pull pesudev/pesu-auth:latest
+      ```
+
+1. Run the Docker container
+
+   ```bash
+   docker run --name pesu-auth -d -p 5000:5000 pesu-auth
+   # If you pulled the pre-built image, use the following command instead:
+   docker run --name pesu-auth -d -p 5000:5000 pesudev/pesu-auth:latest
+   ```
+
+1. Access the API at `http://localhost:5000/`
 
 ### Running without Docker
 
@@ -75,25 +78,27 @@ installed on your system. We recommend using a package manager like [`uv`](https
 dependencies.
 
 1. Create a virtual environment using and activate it. Then, install the dependencies using the following commands.
-    ```bash
-    uv venv --python=3.11
-    source .venv/bin/activate
-    uv sync
-    ```
 
-2. Run the API using the following command.
-    ```bash
-    uv run python -m app.app
-    ```
+   ```bash
+   uv venv --python=3.11
+   source .venv/bin/activate
+   uv sync
+   ```
 
-3. Access the API as previously mentioned on `http://localhost:5000/`
+1. Run the API using the following command.
+
+   ```bash
+   uv run python -m app.app
+   ```
+
+1. Access the API as previously mentioned on `http://localhost:5000/`
 
 ## How to use the PESUAuth API
 
 The API provides multiple endpoints for authentication, documentation, and monitoring.
 
 | **Endpoint**    | **Method** | **Description**                                        |
-|-----------------|------------|--------------------------------------------------------|
+| --------------- | ---------- | ------------------------------------------------------ |
 | `/`             | `GET`      | Serves the interactive API documentation (Swagger UI). |
 | `/authenticate` | `POST`     | Authenticates a user using their PESU credentials.     |
 | `/health`       | `GET`      | A health check endpoint to monitor the API's status.   |
@@ -106,13 +111,13 @@ object, with the user's profile information if requested.
 
 #### Request Parameters
 
-| **Parameter** | **Optional** | **Type**    | **Default** | **Description**                                                                                 |
-|---------------|--------------|-------------|-------------|-------------------------------------------------------------------------------------------------|
-| `username`    | No           | `str`       |             | The user's SRN or PRN                                                                           |
-| `password`    | No           | `str`       |             | The user's password                                                                             |
-| `profile`     | Yes          | `boolean`   | `False`     | Whether to fetch profile information                                                            |
-| `know_your_class_and_section` | Yes          | `boolean`   | `False`     | Whether to fetch data from PESU's "Know Your Class and Section" information                                        |
-| `fields`      | Yes          | `list[str]` | `None`      | Which fields to fetch from the profile information. If not provided, all fields will be fetched |
+| **Parameter**                 | **Optional** | **Type**    | **Default** | **Description**                                                                                 |
+| ----------------------------- | ------------ | ----------- | ----------- | ----------------------------------------------------------------------------------------------- |
+| `username`                    | No           | `str`       |             | The user's SRN or PRN                                                                           |
+| `password`                    | No           | `str`       |             | The user's password                                                                             |
+| `profile`                     | Yes          | `boolean`   | `False`     | Whether to fetch profile information                                                            |
+| `know_your_class_and_section` | Yes          | `boolean`   | `False`     | Whether to fetch data from PESU's "Know Your Class and Section" information                     |
+| `fields`                      | Yes          | `list[str]` | `None`      | Which fields to fetch from the profile information. If not provided, all fields will be fetched |
 
 #### Response Object
 
@@ -120,13 +125,13 @@ On authentication, it returns the following parameters in a JSON object. If the 
 profile data was requested, the response's `profile` key will store a dictionary with a user's profile information.
 **On an unsuccessful sign-in, this field will not exist**.
 
-| **Field**   | **Type**        | **Description**                                                          |
-|-------------|-----------------|--------------------------------------------------------------------------|
-| `status`    | `boolean`       | A flag indicating whether the overall request was successful             |
-| `profile`   | `ProfileObject` | A nested map storing the profile information, returned only if requested |
+| **Field**                     | **Type**                        | **Description**                                                                                 |
+| ----------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
+| `status`                      | `boolean`                       | A flag indicating whether the overall request was successful                                    |
+| `profile`                     | `ProfileObject`                 | A nested map storing the profile information, returned only if requested                        |
 | `know_your_class_and_section` | `KnowYourClassAndSectionObject` | A nested map storing the profile information from PESU's "Know Your Class and Section" endpoint |
-| `message`   | `str`           | A message that provides information corresponding to the status          |
-| `timestamp` | `datetime`      | A timezone offset timestamp indicating the time of authentication        |
+| `message`                     | `str`                           | A message that provides information corresponding to the status                                 |
+| `timestamp`                   | `datetime`                      | A timezone offset timestamp indicating the time of authentication                               |
 
 ##### `ProfileObject`
 
@@ -134,7 +139,7 @@ This object contains the user's profile information, which is returned only if t
 If the authentication fails, this field will not be present in the response.
 
 | **Field**     | **Description**                                        |
-|---------------|--------------------------------------------------------|
+| ------------- | ------------------------------------------------------ |
 | `name`        | Name of the user                                       |
 | `prn`         | PRN of the user                                        |
 | `srn`         | SRN of the user                                        |
@@ -149,19 +154,18 @@ If the authentication fails, this field will not be present in the response.
 
 #### `KnowYourClassAndSectionObject`
 
-| **Field**        | **Description**                                                |
-|------------------|----------------------------------------------------------------|
-| `prn`            | PRN of the user                                                |
-| `srn`            | SRN of the user                                                |
-| `name`           | Name of the user                                               |
-| `semester`       | Current semester that the user is in                           |
-| `section`        | Section of the user                                            |
-| `cycle`          | Physics Cycle or Chemistry Cycle, if the user is in first year |
-| `department`     | Abbreviation of the branch along with the campus the user is studying in   |
-| `branch`         | Abbreviation of the branch that the user is pursuing           |
-| `institute_name` | The name of the campus that the user is studying in            |
-| `error`          | The error name and stack trace, if an error occurs             |
-
+| **Field**        | **Description**                                                          |
+| ---------------- | ------------------------------------------------------------------------ |
+| `prn`            | PRN of the user                                                          |
+| `srn`            | SRN of the user                                                          |
+| `name`           | Name of the user                                                         |
+| `semester`       | Current semester that the user is in                                     |
+| `section`        | Section of the user                                                      |
+| `cycle`          | Physics Cycle or Chemistry Cycle, if the user is in first year           |
+| `department`     | Abbreviation of the branch along with the campus the user is studying in |
+| `branch`         | Abbreviation of the branch that the user is pursuing                     |
+| `institute_name` | The name of the campus that the user is studying in                      |
+| `error`          | The error name and stack trace, if an error occurs                       |
 
 ### `/health`
 
@@ -170,10 +174,10 @@ does not take any request parameters.
 
 #### Response Object
 
-| **Field** | **Type**   | **Description**                                                   |
-|-----------|------------|-------------------------------------------------------------------|
-| `status`  | `str`      | `true` if healthy, `false` if there was an error                  |
-| `message` | `str`      | "ok" if healthy, error message otherwise                          |
+| **Field**   | **Type** | **Description**                                                   |
+| ----------- | -------- | ----------------------------------------------------------------- |
+| `status`    | `str`    | `true` if healthy, `false` if there was an error                  |
+| `message`   | `str`    | "ok" if healthy, error message otherwise                          |
 | `timestamp` | `string` | A timezone offset timestamp indicating the time of authentication |
 
 ### `/readme`
