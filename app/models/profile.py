@@ -43,7 +43,7 @@ class ProfileModel(BaseModel):
     semester: str | None = Field(
         None,
         title="Semester",
-        description="Current semester of the user.",
+        description="Current semester the user is pursuing.",
         json_schema_extra={"example": "2"},
     )
     section: str | None = Field(

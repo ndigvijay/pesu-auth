@@ -194,6 +194,7 @@ async def authenticate(payload: RequestModel, background_tasks: BackgroundTasks)
     username = payload.username
     password = payload.password
     profile = payload.profile
+    know_your_class_and_section = payload.know_your_class_and_section
     fields = payload.fields
 
     # Authenticate the user
@@ -204,6 +205,7 @@ async def authenticate(payload: RequestModel, background_tasks: BackgroundTasks)
             username=username,
             password=password,
             profile=profile,
+            know_your_class_and_section=know_your_class_and_section,
             fields=fields,
         ),
     )

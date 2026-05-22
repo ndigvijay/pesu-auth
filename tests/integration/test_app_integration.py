@@ -354,3 +354,86 @@ def test_unhandled_exception_handler(client):
     data = response.json()
     assert data["status"] is False
     assert data["message"] == "Internal Server Error. Please try again later."
+
+
+def test_integration_authenticate_kycas_wrong_type(client):
+    """Test that non-boolean know_your_class_and_section is rejected."""
+    payload = {
+        "username": "username",
+        "password": "password",
+        "know_your_class_and_section": "true",
+    }
+
+    response = client.post("/authenticate", json=payload)
+    assert response.status_code == 400
+    data = response.json()
+    assert data["status"] is False
+    assert "Could not validate request data" in data["message"]
+    assert "body.know_your_class_and_section: Input should be a valid boolean" in data["message"]
+
+@pytest.mark.secret_required
+def test_integration_authenticate_with_kycas(client):
+    """Test successful authentication with "Know Your Class and Section" data."""
+    email = os.getenv("TEST_EMAIL")
+    password = os.getenv("TEST_PASSWORD")
+    assert email is not None, "TEST_EMAIL environment variable not set"
+    assert password is not None, "TEST_PASSWORD environment variable not set"
+
+    payload = {
+        "username": email,
+        "password": password,
+        "know_your_class_and_section": True,
+    }
+
+    response = client.post("/authenticate", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] is True
+    assert data["message"] == "Login successful."
+    assert "know_your_class_and_section" in data
+    kycas = data["know_your_class_and_section"]
+    assert "prn" in kycas or "srn" in kycas or "name" in kycas
+
+
+@pytest.mark.secret_required
+def test_integration_authenticate_with_profile_and_kycas(client):
+    """Test successful authentication requesting both profile and "Know Your Class and Section"."""
+    email = os.getenv("TEST_EMAIL")
+    password = os.getenv("TEST_PASSWORD")
+    assert email is not None, "TEST_EMAIL environment variable not set"
+    assert password is not None, "TEST_PASSWORD environment variable not set"
+
+    payload = {
+        "username": email,
+        "password": password,
+        "profile": True,
+        "know_your_class_and_section": True,
+    }
+
+    response = client.post("/authenticate", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] is True
+    assert "profile" in data
+    assert "know_your_class_and_section" in data
+
+
+@pytest.mark.secret_required
+def test_integration_authenticate_kycas_without_requesting(client):
+    """Test that "Know Your Class and Section" data is NOT returned when know_your_class_and_section is False."""
+    email = os.getenv("TEST_EMAIL")
+    password = os.getenv("TEST_PASSWORD")
+    assert email is not None, "TEST_EMAIL environment variable not set"
+    assert password is not None, "TEST_PASSWORD environment variable not set"
+
+    payload = {
+        "username": email,
+        "password": password,
+        "know_your_class_and_section": False,
+    }
+
+    response = client.post("/authenticate", json=payload)
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] is True
+    assert data.get("know_your_class_and_section") is None
