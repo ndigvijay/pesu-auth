@@ -111,12 +111,12 @@ object, with the user's profile information if requested.
 
 #### Request Parameters
 
-| **Parameter**             | **Optional** | **Type**    | **Default** | **Description**                                                                                 |
-| ------------------------- | ------------ | ----------- | ----------- | ----------------------------------------------------------------------------------------------- |
-| `username`                | No           | `str`       |             | The user's SRN or PRN                                                                           |
-| `password`                | No           | `str`       |             | The user's password                                                                             |
-| `profile`                 | Yes          | `boolean`   | `False`     | Whether to fetch profile information                                                            |
-| `fields`                  | Yes          | `list[str]` | `None`      | Which fields to fetch from the profile information. If not provided, all fields will be fetched |
+| **Parameter** | **Optional** | **Type**    | **Default** | **Description**                                                                                 |
+| ------------- | ------------ | ----------- | ----------- | ----------------------------------------------------------------------------------------------- |
+| `username`    | No           | `str`       |             | The user's SRN or PRN                                                                           |
+| `password`    | No           | `str`       |             | The user's password                                                                             |
+| `profile`     | Yes          | `boolean`   | `False`     | Whether to fetch profile information                                                            |
+| `fields`      | Yes          | `list[str]` | `None`      | Which fields to fetch from the profile information. If not provided, all fields will be fetched |
 
 #### Response Object
 
@@ -124,12 +124,12 @@ On authentication, it returns the following parameters in a JSON object. If the 
 profile data was requested, the response's `profile` key will store a dictionary with a user's profile information.
 **On an unsuccessful sign-in, this field will not exist**.
 
-| **Field**                 | **Type**                        | **Description**                                                                                 |
-| ------------------------- | ------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `status`                  | `boolean`                       | A flag indicating whether the overall request was successful                                    |
-| `profile`                 | `ProfileObject`                 | A nested map storing the profile information, returned only if requested                        |
-| `message`                 | `str`                           | A message that provides information corresponding to the status                                 |
-| `timestamp`               | `datetime`                      | A timezone offset timestamp indicating the time of authentication                               |
+| **Field**   | **Type**        | **Description**                                                          |
+| ----------- | --------------- | ------------------------------------------------------------------------ |
+| `status`    | `boolean`       | A flag indicating whether the overall request was successful             |
+| `profile`   | `ProfileObject` | A nested map storing the profile information, returned only if requested |
+| `message`   | `str`           | A message that provides information corresponding to the status          |
+| `timestamp` | `datetime`      | A timezone offset timestamp indicating the time of authentication        |
 
 ##### `ProfileObject`
 
